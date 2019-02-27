@@ -1,6 +1,4 @@
-# ejercico_xml
-
-# Enunciado XML
+# Enunciado de XML
 
 ## Parques de Barcelona
 
