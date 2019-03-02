@@ -5,9 +5,11 @@ doc = etree.parse('parques.xml')
 
 lista_municipios = []
 lista_parques = []
+lista_CIF = []
 dic_par = {}
+dic_datos = {}
 
-#----------------------------- Municipios -----------------------------------
+#----------------------------- Lista Municipios -----------------------------------
 
 lista_mun = doc.xpath("/result/elements/item/grup_adreca/municipi_nom/text()")   #Lista de todos los municipios incluidas las lineas con \n que no son municipios
 
@@ -17,13 +19,35 @@ for municipio in lista_mun:
                 
         lista_municipios.append(municipio)
 
-#----------------------------------------------------------------------------
+#-------------------------------- Lista CIF ---------------------------------------
+
+lista_cif = doc.xpath("/result/elements/item/rel_municipis/grup_ajuntament/cif/text()") 
+
+#------------------------------ Funcion Vistas -------------------------------------
 
 def municipio_vista(municipio,doc):
 
     vistas = doc.xpath('/result/elements/item/grup_adreca[municipi_nom="%s"]/../rel_municipis/municipi_vista/text()'%municipio)
     return vistas
 
+#---------------------------- Funcion Datos Parque ----------------------------------
+
+def datos_parque(cif,doc):
+
+    for datos in doc.xpath('/result/elements/item/rel_municipis/grup_ajuntament[cif="%s"]/../..'%cif):
+
+        nombre_parque = datos.xpath('./adreca_nom/text()')[0]
+        descripcion = datos.xpath('./descripcio/text()')[0]
+        direccion = datos.xpath('./grup_adreca/adreca_completa/text()')[0]
+        municipio = datos.xpath('./grup_adreca/municipi_nom')[0].text = ('\n')
+
+        #tree.xpath("//RESPONSE")[0].text = CDATA('xxx')
+
+        dic_datos[nombre_parque] = [descripcion,direccion,municipio]
+    
+    return dic_datos
+
+#--------------------------------- Programa ------------------------------------------
 
 print("")
 print("-------------------MENU--------------------")
@@ -85,25 +109,30 @@ while condicion != 0:
             nom_municipios = input("Introduce Municipio: ")
         
         print("----------------------------- Vista ---------------------------------")
-        for vista in municipio_vista(nom_municipios,doc):
+        for vista in municipio_vista(nom_municipios,doc):           #Llamamos a la funcion municipio_vista y la recorremos
             
             print(vista)
         
         print("---------------------------------------------------------------------")
 
-            #lista_par = doc.xpath("/result/elements/item/adreca_nom/text()")
-            #
-            #for parque in lista_par:
-            #
-            #    if parque.startswith("\n") == False:   #quitamos las lineas con \n 
-            #    
-            #        lista_parques.append(parque)
-            #
-            #for municipio in  
-            
-            
+    if condicion == 4:      #Opcion 4: Mostrar datos del parque por CIF
 
-           # dic_par[doc.xpath("/result/elements/item/grup_adreca/municipi_nom/text()")]=
+       
+        print("")
+        cif = input("Introduce CIF: ")   
+        print("")    
+
+        while cif not in lista_cif:
+
+            print("")
+            print("--------------------------")
+            print("ERROR, no existe CIF")
+            print("--------------------------")
+            print("")
+
+            cif = input("Introduce CIF: ") 
+        
+        print(datos_parque(cif,doc))
 
     print("")
     print("")
