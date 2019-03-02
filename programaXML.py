@@ -23,7 +23,12 @@ for municipio in lista_mun:
 
 lista_cif = doc.xpath("/result/elements/item/rel_municipis/grup_ajuntament/cif/text()") 
 
+#------------------------------ Lista punt_id --------------------------------------
+
+lista_id = doc.xpath("/result/elements/item/punt_id/text()")
+
 #------------------------------ Funcion Vistas -------------------------------------
+
 
 def municipio_vista(municipio,doc):
 
@@ -46,6 +51,16 @@ def datos_parque(cif,doc):
         dic_datos[nombre_parque] = [descripcion,direccion,municipio]
     
     return dic_datos
+
+#---------------------------- Funcion coordenadas ------------------------------------
+
+def coordenadas(id,doc):
+
+    coord = doc.xpath('/result/elements/item[punt_id = "%s"]/localitzacio/text()'%id)[0]
+
+    lista_coordenada = coord.split(",")
+
+    return lista_coordenada
 
 #--------------------------------- Programa ------------------------------------------
 
@@ -133,6 +148,28 @@ while condicion != 0:
             cif = input("Introduce CIF: ") 
         
         print(datos_parque(cif,doc))
+
+    if condicion == 5:
+
+        print("")
+        punt_id = input("Introduce el punto id: ")   
+        print("")    
+
+        while punt_id not in lista_id:
+
+            print("")
+            print("--------------------------")
+            print("ERROR, no existe id")
+            print("--------------------------")
+            print("")
+
+            punt_id = input("Introduce el punto id: ")
+        
+        zoom = input("Introduce el zoom: ")   
+
+        print("Parque:",doc.xpath('/result/elements/item[punt_id = "%s"]/adreca_nom/text()'%punt_id)[0])
+        print("https://www.openstreetmap.org/#map=%s/%s/%s" %(zoom,coordenadas(punt_id,doc)[0],coordenadas(punt_id,doc)[1]))
+
 
     print("")
     print("")
