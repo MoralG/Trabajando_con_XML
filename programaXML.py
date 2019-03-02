@@ -19,6 +19,11 @@ for municipio in lista_mun:
 
 #----------------------------------------------------------------------------
 
+def municipio_vista(municipio,doc):
+
+    vistas = doc.xpath('/result/elements/item/grup_adreca[municipi_nom="%s"]/../rel_municipis/municipi_vista/text()'%municipio)
+    return vistas
+
 
 print("")
 print("-------------------MENU--------------------")
@@ -59,13 +64,32 @@ while condicion != 0:
         print("")
         print("---------------------------")
         print("Municipio:",contar_municipios)
-        print("Nº de parques:",lista_municipios.count(contar_municipios))
+        print("Nº de parques:",lista_municipios.count(contar_municipios))   #Contamos los municipios iguales que hay en la lista, ya que por cada municipio es un parque
         print("---------------------------")
         print("")
 
+    if condicion == 3:     #Opcion 3: Fotos de los parques por Municipios
 
+        print("")
+        nom_municipios = input("Introduce Municipio: ")   
+        print("")    
 
+        while nom_municipios not in lista_municipios:
 
+            print("")
+            print("--------------------------")
+            print("ERROR, no existe Municipio")
+            print("--------------------------")
+            print("")
+
+            nom_municipios = input("Introduce Municipio: ")
+        
+        print("----------------------------- Vista ---------------------------------")
+        for vista in municipio_vista(nom_municipios,doc):
+            
+            print(vista)
+        
+        print("---------------------------------------------------------------------")
 
             #lista_par = doc.xpath("/result/elements/item/adreca_nom/text()")
             #
@@ -81,6 +105,12 @@ while condicion != 0:
 
            # dic_par[doc.xpath("/result/elements/item/grup_adreca/municipi_nom/text()")]=
 
+    print("")
+    print("")
+    print("")
+    print("")
+    print("")
+    print("")
     print("")
     print("-------------------MENU--------------------")
     print("(1) Mostrar todos los Municipios")
