@@ -8,6 +8,7 @@ lista_parques = []
 lista_CIF = []
 dic_par = {}
 dic_datos = {}
+dic_vistas = {}
 
 #----------------------------- Lista Municipios -----------------------------------
 
@@ -27,13 +28,19 @@ lista_cif = doc.xpath("/result/elements/item/rel_municipis/grup_ajuntament/cif/t
 
 lista_id = doc.xpath("/result/elements/item/punt_id/text()")
 
-#------------------------------ Funcion Vistas -------------------------------------
+#------------------------- Funcion Vistas y parque ---------------------------------
 
 
 def municipio_vista(municipio,doc):
 
-    vistas = doc.xpath('/result/elements/item/grup_adreca[municipi_nom="%s"]/../rel_municipis/municipi_vista/text()'%municipio)
-    return vistas
+    for vist in doc.xpath('/result/elements/item/grup_adreca[municipi_nom="%s"]/..'%municipio):
+
+        vistas = vist.xpath('./rel_municipis/municipi_vista/text()')[0]
+        parques = vist.xpath('./adreca_nom/text()')[0]
+        
+        dic_vistas[parques] = vistas
+
+    return dic_vistas
 
 #---------------------------- Funcion Datos Parque ----------------------------------
 
@@ -45,8 +52,6 @@ def datos_parque(cif,doc):
         descripcion = datos.xpath('./descripcio/text()')[0]
         direccion = datos.xpath('./grup_adreca/adreca_completa/text()')[0]
         municipio = datos.xpath('./grup_adreca/municipi_nom')[0].text = ('\n')
-
-        #tree.xpath("//RESPONSE")[0].text = CDATA('xxx')
 
         dic_datos[nombre_parque] = [descripcion,direccion,municipio]
     
@@ -124,9 +129,11 @@ while condicion != 0:
             nom_municipios = input("Introduce Municipio: ")
         
         print("----------------------------- Vista ---------------------------------")
-        for vista in municipio_vista(nom_municipios,doc):           #Llamamos a la funcion municipio_vista y la recorremos
-            
-            print(vista)
+
+        for mun,vista in municipio_vista(nom_municipios,doc).items():       #Hacemos que nos muestre municipio y vista
+
+            print(mun,"=",vista )
+
         
         print("---------------------------------------------------------------------")
 
@@ -149,7 +156,7 @@ while condicion != 0:
         
         print(datos_parque(cif,doc))
 
-    if condicion == 5:
+    if condicion == 5:      #Opcion 5: Mostrar link del OpenStreetView
 
         print("")
         punt_id = input("Introduce el punto id: ")   
