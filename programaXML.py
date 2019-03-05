@@ -12,7 +12,7 @@ dic_vistas = {}
 
 #----------------------------- Lista Municipios -----------------------------------
 
-lista_mun = doc.xpath("/result/elements/item/grup_adreca/municipi_nom/text()")   #Lista de todos los municipios incluidas las lineas con \n que no son municipios
+lista_mun = doc.xpath("/result/elements/item/rel_municipis/municipi_nom/text()")   #Lista de todos los municipios incluidas las lineas con \n que no son municipios
 
 for municipio in lista_mun:
             
@@ -31,7 +31,7 @@ lista_id = doc.xpath("/result/elements/item/punt_id/text()")
 #------------------------- Funcion Vistas y parque ---------------------------------
 
 
-def municipio_vista(municipio,doc):
+def parque_vista(municipio,doc):
 
     for vist in doc.xpath('/result/elements/item/grup_adreca[municipi_nom="%s"]/..'%municipio):
 
@@ -51,7 +51,7 @@ def datos_parque(cif,doc):
         nombre_parque = datos.xpath('./adreca_nom/text()')[0]
         descripcion = datos.xpath('./descripcio/text()')[0]
         direccion = datos.xpath('./grup_adreca/adreca_completa/text()')[0]
-        municipio = datos.xpath('./rel_municipis/municipi_nom')[0].text = ('\n')
+        municipio = datos.xpath('./rel_municipis/municipi_nom/text()')[0]
 
         dic_datos[nombre_parque] = [descripcion,direccion,municipio]
     
@@ -130,9 +130,9 @@ while condicion != 0:
         
         print("----------------------------- Vista ---------------------------------")
 
-        for mun,vista in municipio_vista(nom_municipios,doc).items():       #Hacemos que nos muestre municipio y vista
+        for parq,vista in parque_vista(nom_municipios,doc).items():       #Hacemos que nos muestre municipio y vista
 
-            print(mun,"=",vista )
+            print(parq.strip(),"=",vista.strip())
 
         
         print("---------------------------------------------------------------------")
@@ -158,6 +158,8 @@ while condicion != 0:
 
             print("")
             print("")
+            print("------------------------------------------------")
+            print("------------------------------------------------")
             print("NOMBRE PARQUE:",parque.strip())
             print("")
             print("")
@@ -169,8 +171,6 @@ while condicion != 0:
             print("")
             print("DESCRIPCION:",datos[0].strip())
             print("")
-            print("------------------------------------------------")
-            print("------------------------------------------------")
             print("")
             
 
@@ -215,5 +215,3 @@ while condicion != 0:
     
     condicion = int(input("¿Que opcion eliges?   "))
     print("")
-
-#print(doc.xpath())
