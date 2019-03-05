@@ -87,13 +87,24 @@ while opcion != 0:
 
     if opcion == 1:    #Opcion 1: mostrar municipios
 
+        print("---------------------------------------------------------------------------------")
+        print("Opcion 1 elegida (Lista de todos los municipios)")
+        print("---------------------------------------------------------------------------------")
+        print("")
+
         for municipio in sorted(set(lista_municipios)):   #quitamos los municipios duplicados y lo ordenamos
 
             print(municipio)
 
     if opcion == 2:     #Opcion 2: Contar los parques por Municipios
 
+        print("---------------------------------------------------------------------------------")
+        print("Opcion 2 elegida (Elige un municipio y te muestra la cantidad de parque que tiene)")
+        print("---------------------------------------------------------------------------------")
+
+        print("")
         contar_municipios = input("Introduce Municipio: ")
+        print("")
 
         while contar_municipios not in lista_municipios:
 
@@ -105,7 +116,6 @@ while opcion != 0:
 
             contar_municipios = input("Introduce Municipio: ")
         
-        print("")
         print("---------------------------")
         print("Municipio:",contar_municipios)
         print("Nº de parques:",lista_municipios.count(contar_municipios))   #Contamos los municipios iguales que hay en la lista, ya que por cada municipio es un parque
@@ -113,6 +123,10 @@ while opcion != 0:
         print("")
 
     if opcion == 3:     #Opcion 3: Fotos de los parques por Municipios
+
+        print("---------------------------------------------------------------------------------")
+        print("Opcion 3 elegida (Elige un municipio y te muestra nombre del parques con sus fotos)")
+        print("---------------------------------------------------------------------------------")
 
         print("")
         nom_municipios = input("Introduce Municipio: ")   
@@ -139,14 +153,16 @@ while opcion != 0:
 
     if opcion == 4:      #Opcion 4: Mostrar datos del parque por CIF
 
-       
+        print("---------------------------------------------------------------------------------")
+        print("Opcion 4 elegida (Introduce un CIF y te muestra: nombre, direccion, municipio, descripcion)")
+        print("---------------------------------------------------------------------------------")
+
         print("")
         cif = input("Introduce CIF: ")   
         print("")    
 
         while cif not in lista_cif:
 
-            print("")
             print("--------------------------")
             print("ERROR, no existe CIF")
             print("--------------------------")
@@ -173,8 +189,11 @@ while opcion != 0:
             print("")
             print("")
             
-
     if opcion == 5:      #Opcion 5: Mostrar link del OpenStreetView
+
+        print("---------------------------------------------------------------------------------")
+        print("Opcion 5 elegida (Introduce un id y el zoom, te muestra el link para ver en OpenStreetMap)")
+        print("---------------------------------------------------------------------------------")
 
         print("")
         punt_id = input("Introduce el punto id: ")   
@@ -195,6 +214,11 @@ while opcion != 0:
         print("Parque:",doc.xpath('/result/elements/item[punt_id = "%s"]/adreca_nom/text()'%punt_id)[0])
         print("https://www.openstreetmap.org/#map=%s/%s/%s" %(zoom,coordenadas(punt_id,doc)[0],coordenadas(punt_id,doc)[1]))
 
+    if opcion < 0 or opcion > 5:
+
+        print("-----------------------")
+        print("ERROR, opcion no valida")
+        print("-----------------------")
 
     print("")
     print("")
@@ -215,3 +239,7 @@ while opcion != 0:
     
     opcion = int(input("¿Que opcion eliges?   "))
     print("")
+
+print("-----------------------")
+print("   FIN DEL PROGRAMA")
+print("-----------------------")
