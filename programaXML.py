@@ -80,18 +80,18 @@ print("(0) Finalizar el programa")
 print("-------------------------------------------")
 print("")
 
-condicion = int(input("¿Que opcion eliges?   "))
+opcion = int(input("¿Que opcion eliges?   "))
 print("")
 
-while condicion != 0:
+while opcion != 0:
 
-    if condicion == 1:    #Opcion 1: mostrar municipios
+    if opcion == 1:    #Opcion 1: mostrar municipios
 
         for municipio in sorted(set(lista_municipios)):   #quitamos los municipios duplicados y lo ordenamos
 
             print(municipio)
 
-    if condicion == 2:     #Opcion 2: Contar los parques por Municipios
+    if opcion == 2:     #Opcion 2: Contar los parques por Municipios
 
         contar_municipios = input("Introduce Municipio: ")
 
@@ -112,7 +112,7 @@ while condicion != 0:
         print("---------------------------")
         print("")
 
-    if condicion == 3:     #Opcion 3: Fotos de los parques por Municipios
+    if opcion == 3:     #Opcion 3: Fotos de los parques por Municipios
 
         print("")
         nom_municipios = input("Introduce Municipio: ")   
@@ -137,7 +137,7 @@ while condicion != 0:
         
         print("---------------------------------------------------------------------")
 
-    if condicion == 4:      #Opcion 4: Mostrar datos del parque por CIF
+    if opcion == 4:      #Opcion 4: Mostrar datos del parque por CIF
 
        
         print("")
@@ -174,7 +174,7 @@ while condicion != 0:
             print("")
             
 
-    if condicion == 5:      #Opcion 5: Mostrar link del OpenStreetView
+    if opcion == 5:      #Opcion 5: Mostrar link del OpenStreetView
 
         print("")
         punt_id = input("Introduce el punto id: ")   
@@ -213,5 +213,5 @@ while condicion != 0:
     print("-------------------------------------------")
     print("")
     
-    condicion = int(input("¿Que opcion eliges?   "))
+    opcion = int(input("¿Que opcion eliges?   "))
     print("")
