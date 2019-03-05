@@ -51,7 +51,7 @@ def datos_parque(cif,doc):
         nombre_parque = datos.xpath('./adreca_nom/text()')[0]
         descripcion = datos.xpath('./descripcio/text()')[0]
         direccion = datos.xpath('./grup_adreca/adreca_completa/text()')[0]
-        municipio = datos.xpath('./grup_adreca/municipi_nom')[0].text = ('\n')
+        municipio = datos.xpath('./rel_municipis/municipi_nom')[0].text = ('\n')
 
         dic_datos[nombre_parque] = [descripcion,direccion,municipio]
     
@@ -154,7 +154,25 @@ while condicion != 0:
 
             cif = input("Introduce CIF: ") 
         
-        print(datos_parque(cif,doc))
+        for parque,datos in datos_parque(cif,doc).items():      
+
+            print("")
+            print("")
+            print("NOMBRE PARQUE:",parque.strip())
+            print("")
+            print("")
+            print("MUNICIPIO:", datos[2].strip())
+            print("")
+            print("")
+            print("DIRECCION PARQUE:",datos[1].strip())
+            print("")
+            print("")
+            print("DESCRIPCION:",datos[0].strip())
+            print("")
+            print("------------------------------------------------")
+            print("------------------------------------------------")
+            print("")
+            
 
     if condicion == 5:      #Opcion 5: Mostrar link del OpenStreetView
 
