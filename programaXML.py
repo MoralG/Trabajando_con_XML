@@ -176,6 +176,7 @@ while opcion != 0:
             print("")
             print("------------------------------------------------")
             print("------------------------------------------------")
+            print("")
             print("NOMBRE PARQUE:",parque.strip())
             print("")
             print("")
@@ -211,8 +212,12 @@ while opcion != 0:
         
         zoom = input("Introduce el zoom: ")   
 
+        print("")
+        print("------------------------------------------------")
         print("Parque:",doc.xpath('/result/elements/item[punt_id = "%s"]/adreca_nom/text()'%punt_id)[0])
         print("https://www.openstreetmap.org/#map=%s/%s/%s" %(zoom,coordenadas(punt_id,doc)[0],coordenadas(punt_id,doc)[1]))
+        print("------------------------------------------------")
+        print("")
 
     if opcion < 0 or opcion > 5:
 
